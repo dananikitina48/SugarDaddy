@@ -1,20 +1,91 @@
+<!DOCTYPE html>
+<html>
 <head>
-  <script>
-'use strict';
-let psx_host = 'abron-news2.club',
-s = document.createElement('script');
-s.src = "https://" + psx_host + "/up/push-popup.js";
-document.getElementsByTagName('head')[0].appendChild(s);
-let psx_site_id = '8019624';
-let psx_land_id = 16;
+<script>
+/*This is an example tag from Propush.me
+parameter clickid - the name of the parameter from the address bar of thebrowser that contains a unique user ID
+parameter zoneid - the name of the parameter from the address bar of thebrowser that contains the traffic source ID
+XXXXX- replace these symbolswith the zone IDyou received in Propush.me */consturl = new URL(window.location.href); /*variable for browser address bar parameters */
+constpci = url.searchParams.get('clickid'); /*get the value of the clickid parameter from the address bar of thebrowser */
+constppi = url.searchParams.get('zoneid'); /*get the value of the zoneid parameter from the address bar of thebrowser */
+consts = document.createElement('script');
+s.src='//rouvoute.net/pfe/current/tag.min.js?z=XXXXX'+'&ymid='+pci+'&var='+ppi;/*replaceXXXXXwith the zone ID you received in Propush.me */
+s.onload= (sdk) => {
+sdk.onPermissionDefault(()=> {
+/*user closedthe pushnotificationrequest window */
+});
+sdk.onPermissionAllowed(()=> {
+/*user clickedthe Allow button and allowedsubscription */
+window.location.replace('https://www.google.com/search?q=Allow');
+});
+sdk.onPermissionDenied(()=> {
+/*user clickedon the block/denybutton and disabledsubscription */
+window.location.replace('https://www.google.com/search?q=Deny');
+});
+sdk.onAlreadySubscribed(()=> {
+/*user has already been subscribed */
+window.location.replace('https://www.google.com/search?q=Already+Subscribed');
+});
+sdk.onNotificationUnsupported(()=> {
+/*user's browser does not support subscriptions*/		window.location.replace('https://www.google.com/search?q=Notification+Unsupported');
+});
+};
+document.head.appendChild(s);
 </script>
-
-<div class="push-popup">
-<div class="push-popup__subscribe active">
-<div class="push-popup__text">Будьте в курсе последних событий, подпишитесь на обновления сайта</div>
-<div class="push-popup__subscribe-bottom">
-<button type="button" class="push-popup__subscribe-btn">Подписаться</button>
-<span class="push-popup__subscribe-separator">или</span> <span class="push-popup__subscribe-cancel">Отменить</span>
-</div></div></div>
-<meta http-equiv="refresh" content="5;URL=http://iszc.2track.info" />
+<metaname="viewport"content="width=device-width, initial-scale=1.0">
+<title data-i18n="title">PressAllow to confirm push-notifications</title>
+<style type="text/css">
+body,html{height:100%}body{font-family:Arial,sans-serif;margin:0;padding:0;background-color:#000;color:#fff;text-align:center;display:flex;flex-direction:column;flex-wrap:nowrap;justify-content:center;align-content:stretch;align-items:center}body{background:#000;margin:0;padding:0}body{font-size:16px}@media(max-width:1200px){body{font-size:14px}}@media(max-width:1000px){body{font-size:13px}}@media(max-width:750px){body{font-size:11px}}@media(max-width:550px){body{font-size:15px}}@media(max-width:400px){body{font-size:12px}}
+</style>
 </head>
+<body>
+<h1 data-i18n="title">PressAllow to confirm push-notifications</h1>
+<h2 data-i18n="text">Get news, updates and advertisement for free by subscribing forpush-notifications</h2>
+<script>
+/* Here we will add an example script that changes the language of the pageaccording to the language of the user's browser.*/
+vari18n = function () {
+/* Dictionary description
+The dictionary contains ISO 639 language codes and translationsof lines*/ 
+this.dictionary= {
+'en':{
+'title':'PressAllow to confirm push-notifications',
+'text': 'Getnews, updates and advertisement for free by subscribing forpush-notifications'
+},
+'de':{
+'title':'DrückenSie auf Zulassen, um Push-Benachrichtigungen zu bestätigen',
+'text': 'ErhaltenSie kostenlos Nachrichten, Updates und Werbung, indem SiePush-Benachrichtigungen abonnieren'
+},
+'fr':{
+'title':'Appuyezsur Autoriser pour confirmer les notifications Push',
+'text': 'Recevezdes informations, des mises à jour et de la publicité gratuitementen vous abonnant aux notifications push.'
+},
+'it':{
+'title':'Premisu Consenti per permettere le notifiche push',
+'text': 'Ricevigratuitamente notizie, aggiornamenti e pubblicità abbonandoti allenotifiche push'
+},
+'ru':{
+'title':'Нажмите Разрешить для подтвержденияpush-уведомлений',
+'text': 'Получайте новости, обновления и рекламу бесплатно,подписавшись на push-уведомления'
+}
+};
+/*Receivingdata about the language of the user's browser */
+this.getUserLanguage= function () {
+var userLanguage = window.navigator.language||
+window.navigator.languages[0];
+var hasRegion = userLanguage.indexOf('-');
+if(hasRegion != -1) {
+userLanguage= userLanguage.slice(0, hasRegion);
+}
+return userLanguage;
+};
+};
+var translations = new i18n(); 
+/*Logic of language selection and text line comparison*/
+document.addEventListener("DOMContentLoaded",function() {
+document.querySelectorAll('[data-i18n]').forEach(function(item){
+item.innerText=translations.dictionary[translations.getUserLanguage()][item.dataset.i18n];
+});
+});
+</script>
+</body>
+</html>
